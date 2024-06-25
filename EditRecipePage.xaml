@@ -25,7 +25,7 @@
         <Grid Margin="20">
             <StackPanel>
                 <TextBlock Text="Recipe Name" FontWeight="Bold" FontSize="16" Margin="10"/>
-                <TextBox x:Name="RecipeNameTextBox" Width="200" Tag="Enter recipe name"/>
+                <TextBox x:Name="RecipeNameTextBox" Width="200" Margin="5"/>
 
                 <TextBlock Text="Total Calories:" FontWeight="Bold" FontSize="16" Margin="10"/>
                 <TextBlock x:Name="TotalCaloriesTextBlock" FontSize="16" Margin="10"/>

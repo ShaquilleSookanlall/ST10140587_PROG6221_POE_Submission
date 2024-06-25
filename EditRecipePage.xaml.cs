@@ -18,6 +18,11 @@ namespace ST10140587_PROG6221_POE
             UpdateTotalCalories();
         }
 
+        private void IngredientsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Handle selection changed event if needed
+        }
+
         private void UpdateTotalCalories()
         {
             int totalCalories = currentRecipe.Ingredients.Sum(i => i.Calories);
@@ -35,24 +40,7 @@ namespace ST10140587_PROG6221_POE
 
         private void AddIngredientButton_Click(object sender, RoutedEventArgs e)
         {
-            // Validate ingredient input
-            if (IsValidIngredientInput(out Ingredient ingredient))
-            {
-                currentRecipe.Ingredients.Add(ingredient);
-                IngredientsDataGrid.Items.Refresh();
-                UpdateTotalCalories();
-            }
-            else
-            {
-                MessageBox.Show("Please ensure all ingredient information is filled correctly and the calorie count is a number.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private bool IsValidIngredientInput(out Ingredient ingredient)
-        {
-            ingredient = new Ingredient();
-            // Perform your validation logic here and populate the ingredient
-            return true; // Return false if validation fails
+            NavigationService.Navigate(new AddIngredientPage(currentRecipe));
         }
 
         private void EditIngredientButton_Click(object sender, RoutedEventArgs e)
@@ -60,7 +48,7 @@ namespace ST10140587_PROG6221_POE
             var selectedIngredient = IngredientsDataGrid.SelectedItem as Ingredient;
             if (selectedIngredient != null)
             {
-                // Navigate to edit ingredient page
+                NavigationService.Navigate(new AddIngredientPage(currentRecipe, selectedIngredient));
             }
         }
 
@@ -77,7 +65,7 @@ namespace ST10140587_PROG6221_POE
 
         private void AddStepButton_Click(object sender, RoutedEventArgs e)
         {
-            // Add step logic
+            NavigationService.Navigate(new AddStepPage(currentRecipe));
         }
 
         private void EditStepButton_Click(object sender, RoutedEventArgs e)
@@ -85,7 +73,7 @@ namespace ST10140587_PROG6221_POE
             var selectedStep = StepsListBox.SelectedItem as string;
             if (selectedStep != null)
             {
-                // Edit step logic
+                NavigationService.Navigate(new AddStepPage(currentRecipe, selectedStep));
             }
         }
 
