@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Navigation;
 
 namespace ST10140587_PROG6221_POE
 {
@@ -8,39 +7,43 @@ namespace ST10140587_PROG6221_POE
     {
         private Recipe currentRecipe;
         private string currentStep;
-        private int stepIndex;
 
-        public AddStepPage(Recipe recipe)
+        public AddStepPage(Recipe recipe, string step = null)
         {
             InitializeComponent();
             currentRecipe = recipe;
-        }
-
-        public AddStepPage(Recipe recipe, string step) : this(recipe)
-        {
             currentStep = step;
-            stepIndex = recipe.Steps.IndexOf(step);
-            StepTextBox.Text = step;
+
+            if (currentStep != null)
+            {
+                StepTextBox.Text = currentStep;
+            }
         }
 
-        private void SaveStepButton_Click(object sender, RoutedEventArgs e)
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(StepTextBox.Text))
+            {
+                MessageBox.Show("Step cannot be empty.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             if (currentStep == null)
             {
                 currentRecipe.Steps.Add(StepTextBox.Text);
             }
             else
             {
-                currentRecipe.Steps[stepIndex] = StepTextBox.Text;
+                var index = currentRecipe.Steps.IndexOf(currentStep);
+                currentRecipe.Steps[index] = StepTextBox.Text;
             }
-            NavigationService navigationService = NavigationService.GetNavigationService(this);
-            navigationService.GoBack();
+
+            NavigationService.GoBack();
         }
 
-        private void BackButton_Click(object sender, RoutedEventArgs e)
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService navigationService = NavigationService.GetNavigationService(this);
-            navigationService.GoBack();
+            NavigationService.GoBack();
         }
     }
 }

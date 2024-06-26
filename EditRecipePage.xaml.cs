@@ -96,8 +96,20 @@ namespace ST10140587_PROG6221_POE
                 return;
             }
 
+            // Validate at least one ingredient and one step
+            if (currentRecipe.Ingredients.Count == 0)
+            {
+                MessageBox.Show("Recipe must have at least one ingredient.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (currentRecipe.Steps.Count == 0)
+            {
+                MessageBox.Show("Recipe must have at least one step.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             currentRecipe.Name = RecipeNameTextBox.Text;
-            // Save recipe logic here
 
             // Alert if calories exceed 300
             if (currentRecipe.Ingredients.Sum(i => i.Calories) > 300)
