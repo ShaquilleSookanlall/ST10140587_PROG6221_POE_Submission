@@ -4,14 +4,21 @@ using System.Windows.Navigation;
 
 namespace ST10140587_PROG6221_POE
 {
-    public partial class AddIngredientPage : Page
+    public partial class EditIngredientPage : Page
     {
         private Recipe currentRecipe;
+        private Ingredient currentIngredient;
 
-        public AddIngredientPage(Recipe recipe)
+        public EditIngredientPage(Recipe recipe, Ingredient ingredient)
         {
             InitializeComponent();
             currentRecipe = recipe;
+            currentIngredient = ingredient;
+            IngredientNameTextBox.Text = ingredient.Name;
+            IngredientQuantityTextBox.Text = ingredient.Quantity.ToString();
+            IngredientUnitTextBox.Text = ingredient.Unit;
+            IngredientCaloriesTextBox.Text = ingredient.Calories.ToString();
+            IngredientFoodGroupTextBox.Text = ingredient.FoodGroup;
         }
 
         private void SaveIngredientButton_Click(object sender, RoutedEventArgs e)
@@ -38,16 +45,12 @@ namespace ST10140587_PROG6221_POE
                 return;
             }
 
-            Ingredient newIngredient = new Ingredient
-            {
-                Name = IngredientNameTextBox.Text,
-                Quantity = quantity,
-                Unit = IngredientUnitTextBox.Text,
-                Calories = calories,
-                FoodGroup = IngredientFoodGroupTextBox.Text
-            };
+            currentIngredient.Name = IngredientNameTextBox.Text;
+            currentIngredient.Quantity = quantity;
+            currentIngredient.Unit = IngredientUnitTextBox.Text;
+            currentIngredient.Calories = calories;
+            currentIngredient.FoodGroup = IngredientFoodGroupTextBox.Text;
 
-            currentRecipe.Ingredients.Add(newIngredient);
             NavigationService.GoBack();
         }
 

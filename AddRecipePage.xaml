@@ -2,15 +2,40 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Title="AddRecipePage">
-    <Grid>
-        <StackPanel>
-            <TextBox x:Name="RecipeNameTextBox" Width="200" Margin="10" Tag="Enter recipe name"/>
-            <TextBox x:Name="IngredientDetailsTextBox" Width="300" Margin="10" Tag="Enter ingredient details"/>
-            <TextBox x:Name="IngredientCaloriesTextBox" Width="200" Margin="10" Tag="Enter calories"/>
-            <Button x:Name="AddIngredientButton" Content="Add Ingredient" Width="200" Margin="10" Click="AddIngredientButton_Click"/>
-            <TextBox x:Name="StepTextBox" Width="200" Margin="10" Tag="Enter step"/>
-            <Button x:Name="AddStepButton" Content="Add Step" Width="200" Margin="10" Click="AddStepButton_Click"/>
-            <Button x:Name="SaveRecipeButton" Content="Save Recipe" Width="200" Margin="10" Click="SaveRecipeButton_Click"/>
-        </StackPanel>
-    </Grid>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid>
+            <StackPanel>
+                <TextBlock Text="Add Recipe" FontWeight="Bold" FontSize="20" Margin="10"/>
+                <TextBlock Text="Recipe Name:" Margin="10,0,0,0"/>
+                <TextBox x:Name="RecipeNameTextBox" Width="200" Margin="10"/>
+                <TextBlock Text="Ingredients" FontWeight="Bold" FontSize="16" Margin="10"/>
+                <DataGrid x:Name="IngredientsDataGrid" AutoGenerateColumns="False" Width="500" Height="200" Margin="10" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}"/>
+                        <DataGridTextColumn Header="Unit" Binding="{Binding Unit}"/>
+                        <DataGridTextColumn Header="Calories" Binding="{Binding Calories}"/>
+                        <DataGridTextColumn Header="Food Group" Binding="{Binding FoodGroup}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="AddIngredientButton" Content="Add Ingredient" Width="150" Margin="10" Click="AddIngredientButton_Click"/>
+                    <Button x:Name="EditIngredientButton" Content="Edit Ingredient" Width="150" Margin="10" Click="EditIngredientButton_Click"/>
+                    <Button x:Name="RemoveIngredientButton" Content="Remove Ingredient" Width="150" Margin="10" Click="RemoveIngredientButton_Click"/>
+                </StackPanel>
+
+                <TextBlock Text="Steps" FontWeight="Bold" FontSize="16" Margin="10"/>
+                <ListBox x:Name="StepsListBox" Width="500" Height="200" Margin="10"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="AddStepButton" Content="Add Step" Width="150" Margin="10" Click="AddStepButton_Click"/>
+                    <Button x:Name="EditStepButton" Content="Edit Step" Width="150" Margin="10" Click="EditStepButton_Click"/>
+                    <Button x:Name="RemoveStepButton" Content="Remove Step" Width="150" Margin="10" Click="RemoveStepButton_Click"/>
+                </StackPanel>
+
+                <TextBlock x:Name="TotalCaloriesTextBlock" FontWeight="Bold" FontSize="16" Margin="10"/>
+                <Button x:Name="SaveRecipeButton" Content="Save Recipe" Width="200" Margin="10" Click="SaveRecipeButton_Click"/>
+                <Button Content="Back" Width="200" Margin="10" Click="BackButton_Click"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </Page>

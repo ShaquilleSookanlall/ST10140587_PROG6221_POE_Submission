@@ -61,8 +61,14 @@
     <Compile Include="AddStepPage.xaml.cs">
       <DependentUpon>AddStepPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EditIngredientPage.xaml.cs">
+      <DependentUpon>EditIngredientPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EditRecipePage.xaml.cs">
       <DependentUpon>EditRecipePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditStepPage.xaml.cs">
+      <DependentUpon>EditStepPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Recipe.cs" />
     <Compile Include="RecipeDetailsPage.xaml.cs">
@@ -81,7 +87,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="EditIngredientPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EditRecipePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditStepPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

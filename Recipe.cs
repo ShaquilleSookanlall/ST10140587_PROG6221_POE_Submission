@@ -6,30 +6,24 @@ namespace ST10140587_PROG6221_POE
     public class Recipe
     {
         public string Name { get; set; }
-        public List<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
-        public List<string> Steps { get; set; } = new List<string>();
-        public int TotalCalories
+        public List<Ingredient> Ingredients { get; set; }
+        public List<string> Steps { get; set; }
+
+        public Recipe()
         {
-            get { return Ingredients.Sum(i => i.Calories); }
+            Ingredients = new List<Ingredient>();
+            Steps = new List<string>();
         }
 
-        // Add a method to reset the ingredient quantities to their original values
-        public void ResetQuantities()
+        public void ScaleRecipe(double factor)
         {
             foreach (var ingredient in Ingredients)
             {
-                ingredient.Quantity = ingredient.OriginalQuantity;
+                ingredient.Quantity *= factor;
             }
         }
 
-        // Add a method to scale the ingredient quantities
-        public void ScaleQuantities(double scale)
-        {
-            foreach (var ingredient in Ingredients)
-            {
-                ingredient.Quantity = ingredient.OriginalQuantity * scale;
-            }
-        }
+        public int TotalCalories => Ingredients.Sum(i => i.Calories * (int)i.Quantity);
     }
 
     public class Ingredient
@@ -39,13 +33,5 @@ namespace ST10140587_PROG6221_POE
         public string Unit { get; set; }
         public int Calories { get; set; }
         public string FoodGroup { get; set; }
-
-        // Store the original quantity
-        public double OriginalQuantity { get; set; }
-
-        public Ingredient()
-        {
-            OriginalQuantity = Quantity;
-        }
     }
 }

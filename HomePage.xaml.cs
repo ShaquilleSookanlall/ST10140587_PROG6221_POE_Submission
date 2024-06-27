@@ -2,50 +2,44 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace ST10140587_PROG6221_POE
 {
     public partial class HomePage : Page
     {
-        private List<Recipe> allRecipes;
-        private List<Recipe> filteredRecipes;
-
         public HomePage()
         {
             InitializeComponent();
-            LoadRecipes();
+            RecipesListBox.ItemsSource = App.Recipes;
         }
 
-        private void LoadRecipes()
+        private void AddNewRecipeButton_Click(object sender, RoutedEventArgs e)
         {
-            // Load all recipes (this should be replaced with actual data loading logic)
-            allRecipes = new List<Recipe>
-            {
-                new Recipe { Name = "Recipe 1", Ingredients = new List<Ingredient> { new Ingredient { Name = "Ingredient 1" } }, Steps = new List<string> { "Step 1" }, TotalCalories = 100 },
-                new Recipe { Name = "Recipe 2", Ingredients = new List<Ingredient> { new Ingredient { Name = "Ingredient 2" } }, Steps = new List<string> { "Step 2" }, TotalCalories = 200 }
-            };
-            filteredRecipes = allRecipes;
-            RecipesListBox.ItemsSource = filteredRecipes.OrderBy(r => r.Name);
-        }
-
-        private void SearchButton_Click(object sender, RoutedEventArgs e)
-        {
-            string searchText = SearchTextBox.Text.ToLower();
-            filteredRecipes = allRecipes
-                .Where(r => r.Name.ToLower().Contains(searchText) ||
-                            r.Ingredients.Any(i => i.Name.ToLower().Contains(searchText)) ||
-                            (int.TryParse(searchText, out int calories) && r.TotalCalories <= calories))
-                .ToList();
-            RecipesListBox.ItemsSource = filteredRecipes.OrderBy(r => r.Name);
+            NavigationService.Navigate(new AddRecipePage());
         }
 
         private void RecipesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedRecipe = RecipesListBox.SelectedItem as Recipe;
-            if (selectedRecipe != null)
+            if (RecipesListBox.SelectedItem is Recipe selectedRecipe)
             {
                 NavigationService.Navigate(new RecipeDetailsPage(selectedRecipe));
             }
+        }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            string searchText = CombinedSearchBox.Text.ToLower();
+            int cal;
+            bool isCalValid = int.TryParse(searchText, out cal);
+
+            var filteredRecipes = App.Recipes.Where(r =>
+                r.Name.ToLower().Contains(searchText) ||
+                r.Ingredients.Any(i => i.FoodGroup.ToLower().Contains(searchText) || i.Name.ToLower().Contains(searchText)) ||
+                (isCalValid && r.TotalCalories <= cal)
+            ).ToList();
+
+            RecipesListBox.ItemsSource = filteredRecipes.OrderBy(r => r.Name);
         }
     }
 }

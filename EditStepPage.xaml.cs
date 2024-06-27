@@ -4,14 +4,17 @@ using System.Windows.Navigation;
 
 namespace ST10140587_PROG6221_POE
 {
-    public partial class AddStepPage : Page
+    public partial class EditStepPage : Page
     {
         private Recipe currentRecipe;
+        private string currentStep;
 
-        public AddStepPage(Recipe recipe)
+        public EditStepPage(Recipe recipe, string step)
         {
             InitializeComponent();
             currentRecipe = recipe;
+            currentStep = step;
+            StepTextBox.Text = step;
         }
 
         private void SaveStepButton_Click(object sender, RoutedEventArgs e)
@@ -22,7 +25,15 @@ namespace ST10140587_PROG6221_POE
                 return;
             }
 
-            currentRecipe.Steps.Add(StepTextBox.Text);
+            int index = currentRecipe.Steps.IndexOf(currentStep);
+            if (index >= 0)
+            {
+                currentRecipe.Steps[index] = StepTextBox.Text;
+            }
+            else
+            {
+                currentRecipe.Steps.Add(StepTextBox.Text);
+            }
             NavigationService.GoBack();
         }
 

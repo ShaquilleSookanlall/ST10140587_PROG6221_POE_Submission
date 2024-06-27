@@ -1,48 +1,36 @@
 ﻿<Page x:Class="ST10140587_PROG6221_POE.EditRecipePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:local="clr-namespace:ST10140587_PROG6221_POE"
       Title="EditRecipePage">
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
         <Grid>
             <StackPanel>
-                <TextBlock Text="Recipe Name" FontWeight="Bold" FontSize="16" Margin="10"/>
-                <TextBox x:Name="RecipeNameTextBox" Width="200" Margin="5"/>
-
-                <TextBlock Text="Total Calories:" FontWeight="Bold" FontSize="16" Margin="10"/>
-                <TextBlock x:Name="TotalCaloriesTextBlock" FontSize="16" Margin="10"/>
-
+                <TextBlock Text="Edit Recipe" FontWeight="Bold" FontSize="20" Margin="10"/>
+                <TextBlock Text="Recipe Name" Margin="10,0,0,0"/>
+                <TextBox x:Name="RecipeNameTextBox" Width="200" Margin="10"/>
                 <TextBlock Text="Ingredients" FontWeight="Bold" FontSize="16" Margin="10"/>
-                <DataGrid x:Name="IngredientsDataGrid" AutoGenerateColumns="False" Width="500" Height="200" Margin="10" SelectionChanged="IngredientsDataGrid_SelectionChanged">
+                <DataGrid x:Name="IngredientsDataGrid" AutoGenerateColumns="False" Width="500" Height="200" Margin="10">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
-                        <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="*"/>
-                        <DataGridTextColumn Header="Unit" Binding="{Binding Unit}" Width="*"/>
-                        <DataGridTextColumn Header="Calories" Binding="{Binding Calories}" Width="*"/>
-                        <DataGridTextColumn Header="Food Group" Binding="{Binding FoodGroup}" Width="*"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}"/>
+                        <DataGridTextColumn Header="Unit" Binding="{Binding Unit}"/>
+                        <DataGridTextColumn Header="Calories" Binding="{Binding Calories}"/>
+                        <DataGridTextColumn Header="Food Group" Binding="{Binding FoodGroup}"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button x:Name="AddIngredientButton" Content="Add Ingredient" Width="150" Click="AddIngredientButton_Click"/>
-                    <Button x:Name="EditIngredientButton" Content="Edit Ingredient" Width="150" Click="EditIngredientButton_Click"/>
-                    <Button x:Name="RemoveIngredientButton" Content="Remove Ingredient" Width="150" Click="RemoveIngredientButton_Click"/>
+                    <Button x:Name="AddIngredientButton" Content="Add Ingredient" Width="150" Margin="10" Click="AddIngredientButton_Click"/>
+                    <Button x:Name="EditIngredientButton" Content="Edit Ingredient" Width="150" Margin="10" Click="EditIngredientButton_Click"/>
+                    <Button x:Name="RemoveIngredientButton" Content="Remove Ingredient" Width="150" Margin="10" Click="RemoveIngredientButton_Click"/>
                 </StackPanel>
-
                 <TextBlock Text="Steps" FontWeight="Bold" FontSize="16" Margin="10"/>
                 <ListBox x:Name="StepsListBox" Width="500" Height="200" Margin="10"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button x:Name="AddStepButton" Content="Add Step" Width="150" Click="AddStepButton_Click"/>
-                    <Button x:Name="EditStepButton" Content="Edit Step" Width="150" Click="EditStepButton_Click"/>
-                    <Button x:Name="RemoveStepButton" Content="Remove Step" Width="150" Click="RemoveStepButton_Click"/>
+                    <Button x:Name="AddStepButton" Content="Add Step" Width="150" Margin="10" Click="AddStepButton_Click"/>
+                    <Button x:Name="EditStepButton" Content="Edit Step" Width="150" Margin="10" Click="EditStepButton_Click"/>
+                    <Button x:Name="RemoveStepButton" Content="Remove Step" Width="150" Margin="10" Click="RemoveStepButton_Click"/>
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                    <Button x:Name="ScaleHalfButton" Content="Scale 0.5x" Width="100" Margin="5" Tag="0.5" Click="ScaleButton_Click"/>
-                    <Button x:Name="ScaleDoubleButton" Content="Scale 2x" Width="100" Margin="5" Tag="2" Click="ScaleButton_Click"/>
-                    <Button x:Name="ScaleTripleButton" Content="Scale 3x" Width="100" Margin="5" Tag="3" Click="ScaleButton_Click"/>
-                    <Button x:Name="ResetButton" Content="Reset" Width="100" Margin="5" Click="ResetButton_Click"/>
-                </StackPanel>
-
+                <TextBlock x:Name="TotalCaloriesTextBlock" FontWeight="Bold" FontSize="16" Margin="10"/>
                 <Button x:Name="SaveRecipeButton" Content="Save Recipe" Width="200" Margin="10" Click="SaveRecipeButton_Click"/>
                 <Button Content="Back" Width="200" Margin="10" Click="BackButton_Click"/>
             </StackPanel>
