@@ -24,7 +24,7 @@ namespace ST10140587_PROG6221_POE
             }
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private void SaveIngredientButton_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(IngredientNameTextBox.Text) ||
                 !double.TryParse(IngredientQuantityTextBox.Text, out double quantity) ||
@@ -51,7 +51,7 @@ namespace ST10140587_PROG6221_POE
             NavigationService.GoBack();
         }
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
         }

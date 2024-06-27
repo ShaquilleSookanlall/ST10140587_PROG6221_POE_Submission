@@ -1,45 +1,62 @@
 ﻿using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace ST10140587_PROG6221_POE
 {
     public partial class RecipeDetailsPage : Page
     {
-        private Recipe originalRecipe;
         private Recipe currentRecipe;
 
-        public RecipeDetailsPage(string recipeName)
+        public RecipeDetailsPage(Recipe recipe)
         {
             InitializeComponent();
-            originalRecipe = App.Recipes.FirstOrDefault(r => r.Name == recipeName);
-            currentRecipe = originalRecipe.Clone();
-            BindData();
-        }
-
-        private void BindData()
-        {
+            currentRecipe = recipe;
             RecipeNameTextBlock.Text = currentRecipe.Name;
             RecipeDetailsDataGrid.ItemsSource = currentRecipe.Ingredients;
             StepsListBox.ItemsSource = currentRecipe.Steps;
+            UpdateTotalCalories();
+        }
+
+        private void UpdateTotalCalories()
+        {
+            int totalCalories = currentRecipe.Ingredients.Sum(i => i.Calories);
+            TotalCaloriesTextBlock.Text = totalCalories.ToString();
+
+            if (totalCalories > 300)
+            {
+                TotalCaloriesTextBlock.Foreground = System.Windows.Media.Brushes.Red;
+            }
+            else
+            {
+                TotalCaloriesTextBlock.Foreground = System.Windows.Media.Brushes.Black;
+            }
         }
 
         private void ScaleButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             Button button = sender as Button;
             double scale = double.Parse(button.Tag.ToString());
-            currentRecipe = originalRecipe.Clone();
-            currentRecipe.ScaleRecipe(scale);
-            BindData();
+            currentRecipe.ScaleQuantities(scale);
+            RecipeDetailsDataGrid.Items.Refresh();
+            UpdateTotalCalories();
+        }
+
+        private void ResetButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            currentRecipe.ResetQuantities();
+            RecipeDetailsDataGrid.Items.Refresh();
+            UpdateTotalCalories();
+        }
+
+        private void EditRecipeButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new EditRecipePage(currentRecipe));
         }
 
         private void BackButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             NavigationService.GoBack();
-        }
-
-        private void EditRecipeButton_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new EditRecipePage(originalRecipe));
         }
     }
 }

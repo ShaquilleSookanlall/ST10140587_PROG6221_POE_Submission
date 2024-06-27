@@ -20,7 +20,7 @@ namespace ST10140587_PROG6221_POE
             }
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private void SaveStepButton_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(StepTextBox.Text))
             {
@@ -41,7 +41,7 @@ namespace ST10140587_PROG6221_POE
             NavigationService.GoBack();
         }
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
         }

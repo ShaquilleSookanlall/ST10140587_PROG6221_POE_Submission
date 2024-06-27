@@ -1,57 +1,51 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace ST10140587_PROG6221_POE
 {
     public partial class HomePage : Page
     {
+        private List<Recipe> allRecipes;
+        private List<Recipe> filteredRecipes;
+
         public HomePage()
         {
             InitializeComponent();
+            LoadRecipes();
         }
 
-        private void Page_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private void LoadRecipes()
         {
-            BindData();
+            // Load all recipes (this should be replaced with actual data loading logic)
+            allRecipes = new List<Recipe>
+            {
+                new Recipe { Name = "Recipe 1", Ingredients = new List<Ingredient> { new Ingredient { Name = "Ingredient 1" } }, Steps = new List<string> { "Step 1" }, TotalCalories = 100 },
+                new Recipe { Name = "Recipe 2", Ingredients = new List<Ingredient> { new Ingredient { Name = "Ingredient 2" } }, Steps = new List<string> { "Step 2" }, TotalCalories = 200 }
+            };
+            filteredRecipes = allRecipes;
+            RecipesListBox.ItemsSource = filteredRecipes.OrderBy(r => r.Name);
         }
 
-        private void BindData()
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            RecipesListBox.ItemsSource = App.Recipes.OrderBy(r => r.Name).Select(r => r.Name).ToList();
-        }
-
-        private void AddNewRecipeButton_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            var newRecipe = new Recipe();
-            App.Recipes.Add(newRecipe);
-            NavigationService.Navigate(new EditRecipePage(newRecipe));
+            string searchText = SearchTextBox.Text.ToLower();
+            filteredRecipes = allRecipes
+                .Where(r => r.Name.ToLower().Contains(searchText) ||
+                            r.Ingredients.Any(i => i.Name.ToLower().Contains(searchText)) ||
+                            (int.TryParse(searchText, out int calories) && r.TotalCalories <= calories))
+                .ToList();
+            RecipesListBox.ItemsSource = filteredRecipes.OrderBy(r => r.Name);
         }
 
         private void RecipesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string selectedRecipeName = RecipesListBox.SelectedItem as string;
-            if (selectedRecipeName != null)
+            var selectedRecipe = RecipesListBox.SelectedItem as Recipe;
+            if (selectedRecipe != null)
             {
-                NavigationService.Navigate(new RecipeDetailsPage(selectedRecipeName));
+                NavigationService.Navigate(new RecipeDetailsPage(selectedRecipe));
             }
-        }
-
-        private void SearchButton_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            var searchQuery = CombinedSearchBox.Text.ToLower();
-            var filteredRecipes = App.Recipes.AsQueryable();
-
-            bool calorieSearch = int.TryParse(searchQuery, out int calorieLimit);
-
-            if (!string.IsNullOrWhiteSpace(searchQuery))
-            {
-                filteredRecipes = filteredRecipes.Where(r =>
-                    r.Name.ToLower().Contains(searchQuery) ||
-                    r.Ingredients.Any(i => i.FoodGroup.ToLower().Contains(searchQuery)) ||
-                    (calorieSearch && r.Ingredients.Sum(i => i.Calories) <= calorieLimit));
-            }
-
-            RecipesListBox.ItemsSource = filteredRecipes.OrderBy(r => r.Name).Select(r => r.Name).ToList();
         }
     }
 }

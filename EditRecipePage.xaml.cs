@@ -127,5 +127,21 @@ namespace ST10140587_PROG6221_POE
         {
             NavigationService.GoBack();
         }
+
+        private void ScaleButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            double scale = double.Parse(button.Tag.ToString());
+            currentRecipe.ScaleQuantities(scale);
+            IngredientsDataGrid.Items.Refresh();
+            UpdateTotalCalories();
+        }
+
+        private void ResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            currentRecipe.ResetQuantities();
+            IngredientsDataGrid.Items.Refresh();
+            UpdateTotalCalories();
+        }
     }
 }

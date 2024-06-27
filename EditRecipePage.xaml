@@ -3,26 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="clr-namespace:ST10140587_PROG6221_POE"
       Title="EditRecipePage">
-    <Page.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="FontFamily" Value="Arial"/>
-            <Setter Property="Foreground" Value="DarkSlateGray"/>
-        </Style>
-        <Style TargetType="Button">
-            <Setter Property="Background" Value="Teal"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontFamily" Value="Arial"/>
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="Padding" Value="5"/>
-        </Style>
-        <Style TargetType="TextBox">
-            <Setter Property="FontFamily" Value="Arial"/>
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="Padding" Value="5"/>
-        </Style>
-    </Page.Resources>
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="WhiteSmoke">
-        <Grid Margin="20">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid>
             <StackPanel>
                 <TextBlock Text="Recipe Name" FontWeight="Bold" FontSize="16" Margin="10"/>
                 <TextBox x:Name="RecipeNameTextBox" Width="200" Margin="5"/>
@@ -55,9 +37,14 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                    <Button x:Name="SaveRecipeButton" Content="Save Recipe" Width="200" Click="SaveRecipeButton_Click"/>
-                    <Button Content="Back" Width="200" Click="BackButton_Click"/>
+                    <Button x:Name="ScaleHalfButton" Content="Scale 0.5x" Width="100" Margin="5" Tag="0.5" Click="ScaleButton_Click"/>
+                    <Button x:Name="ScaleDoubleButton" Content="Scale 2x" Width="100" Margin="5" Tag="2" Click="ScaleButton_Click"/>
+                    <Button x:Name="ScaleTripleButton" Content="Scale 3x" Width="100" Margin="5" Tag="3" Click="ScaleButton_Click"/>
+                    <Button x:Name="ResetButton" Content="Reset" Width="100" Margin="5" Click="ResetButton_Click"/>
                 </StackPanel>
+
+                <Button x:Name="SaveRecipeButton" Content="Save Recipe" Width="200" Margin="10" Click="SaveRecipeButton_Click"/>
+                <Button Content="Back" Width="200" Margin="10" Click="BackButton_Click"/>
             </StackPanel>
         </Grid>
     </ScrollViewer>
