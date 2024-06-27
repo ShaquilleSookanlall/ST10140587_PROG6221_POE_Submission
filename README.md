@@ -10,6 +10,7 @@ View Recipe: Users can view the details of a recipe, including ingredients and s
 Scale Recipe: Users can scale the ingredients of a recipe by 0.5x, 2x, or 3x, and reset to the original quantities.
 Delete Recipe: Users can delete a recipe from the app.
 Search Recipes: Users can search for recipes by name, ingredients, food group, or calorie content.
+
 Components
 App.xaml: Contains the application-level resources.
 MainWindow.xaml: The main window of the application.
@@ -21,6 +22,7 @@ AddIngredientPage.xaml: The page for adding an ingredient to a recipe.
 AddStepPage.xaml: The page for adding a step to a recipe.
 Recipe.cs: The model class for a recipe.
 Ingredient.cs: The model class for an ingredient.
+
 Updates from Part 2 to Final Part
 Search Functionality: Implemented search functionality on the Home Page to allow users to search for recipes by name, ingredients, food group, or calorie content.
 Improved UI Layout: Updated the layout of the AddRecipePage and EditRecipePage for better user experience.
